@@ -8,12 +8,10 @@ Graphs, nodes, and edges may be characterized in various ways. For example, the 
   
 ## Installation
 To get started installing the package, run the command `install.packages('discourseGT')` in R, which will download the most stable package from CRAN.  
-You may also install the development version of the package from GitLab by `devtools::install_git(url = 'https://gitlab.com/ucsd-lo-group/discourseGT')`
 
 ## How to Use
-Instructions on how to use the package can be found thorugh the Repository Wiki.
+Instructions on how to use the package can be found through the Repository Wiki.
 
 ## License
 This package is MIT Licensed  
-Written by Albert Chai <@albertchai>, Andrew S. Lee <@alee4738>, and Stanley M. Lo <@smlo>
-
+Written by Albert Chai <@albertchai>, Andrew Lee <@alee4738>, Joshua Le <@jpl038>, and Stanley Lo <@smlo>

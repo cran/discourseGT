@@ -24,9 +24,8 @@ Saves information from graphs and data objects created by package. Plots are sav
 attributeData <- attributeData
 df <- sampleData1
 
-prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 NetPlots2 <- plotGraphs2(baseNet, attribute1 = attributeData$ethnicity,
 attribute2 = attributeData$gender, attribute.node.labels = attributeData$node,
 attribute1.label = "Ethnicity", attribute2.label = "Gender")

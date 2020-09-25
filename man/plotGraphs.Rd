@@ -34,9 +34,8 @@ Plots graph data using the GGally library and ggnet function while incorporating
 }
 \examples{
 df <- sampleData1
-prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 attdata <- attributeData
 plotGraphs(baseNet, prop = 20, graphmode = "fruchtermanreingold",
 attribute = attdata$gender,

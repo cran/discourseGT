@@ -15,12 +15,13 @@
 #' @param data Original raw input data in ordered question/response 2 column format
 #' @param convoMinutes Time length of the conversation in the graph in minutes
 #' @param iscsvfile Sets if the input data file to function is a .csv file or a R data frame object
+#' @param silentNodes The number of nodes that do not interact with other nodes but are in the group
 #' @return Creates a plot returning the questions per hour versus responses per hour, frequency plot of the number of episodes, and normalized turn ratio
 #' @examples
 #' df <- sampleData1
-#' plotNGTData(df, convoMinutes = 60, iscsvfile = FALSE)
+#' plotNGTData(df, convoMinutes = 60, iscsvfile = FALSE, silentNodes = 0)
 
-plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
+plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
   #Read the .csv file if the raw file is a .csv file, else read the data frame object direct with data copy clone
   if(iscsvfile == TRUE){
     data <- read.csv(data)
@@ -28,6 +29,7 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
 
   #Create a copy of raw file for processing
   raw <- data
+
   #colnames(raw)[colnames(raw)=="ï..q"] <- "q"
 
   ##### Histogram for Frequency of Episodes #####
@@ -88,10 +90,19 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
   eps_st <- data.frame(table(eps_master$eps_len_list))
   colnames(eps_st)[colnames(eps_st)=="Var1"] <- "episode_length"
 
+  # modify the df so that there is a continuous x-axis
+  max <- as.integer(as.vector(eps_st$episode_length[length(eps_st$episode_length)]))
+  missingNodes <- data.frame("episode_length" = factor(as.vector(1:max)), "Freq" = as.vector(as.integer(0)))
+
+  eps_st <- dplyr::bind_rows(eps_st, missingNodes)
+  eps_st <- aggregate(Freq~episode_length, data = eps_st, FUN = sum)
+  eps_st <- eps_st[order(as.integer(eps_st$episode_length)),]
+  row.names(eps_st) <- 1:nrow(eps_st)
+
   #Create a histogram plot of lengths
   #View all color fill options through this command: RColorBrewer::display.brewer.all()
   #Color can be an option for the function, else go with the default of blue
-  eps_plot <- ggplot2::ggplot(eps_st, ggplot2::aes(x = eps_st$episode_length, weight = eps_st$Freq)) + ggplot2::geom_bar(show.legend = FALSE) + ggplot2::xlab('Length of Episodes') + ggplot2::ylab('Frequency of Episodes') + ggplot2::theme(panel.background = ggplot2::element_blank())
+  eps_plot <- ggplot2::ggplot(eps_st, ggplot2::aes(x = reorder(eps_st$episode_length, 1:max), weight = eps_st$Freq)) + ggplot2::geom_bar(show.legend = FALSE) + ggplot2::xlab('Length of Episodes') + ggplot2::ylab('Frequency of Episodes') + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25), axis.text.x = ggplot2::element_text(angle = 90, hjust = 1)) + ggplot2::scale_y_continuous(limits = c(0, NA))
   #Displays the plot to memory
   #print(eps_plot)
 
@@ -111,6 +122,20 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
   qcount <- data.frame(table(raw$ep_start))
   #Get table of responses
   rcount <- data.frame(table(raw$ep_cont))
+
+  # Check for silent nodes & modify the master table if necessary
+  if(silentNodes > 0){
+    baseSilentNode <- max(as.numeric(as.character(qcount[,1])), as.numeric(as.character(rcount[,1]))) + 1
+
+    z <- 0
+    while(z < silentNodes){
+      dfSN <- data.frame(Var1 = c(as.character(baseSilentNode)), Freq = c(0))
+      qcount <- dplyr::bind_rows(qcount, dfSN)
+      rcount <- dplyr::bind_rows(rcount, dfSN)
+      baseSilentNode <- baseSilentNode + 1
+      z <- z + 1
+    }
+  }
 
   #Merge the questions and responses of each participant together
   count_master <- merge(qcount, rcount, by = "Var1", all.x = TRUE, all.y = TRUE)
@@ -184,22 +209,35 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
   count_master$edge_by_part <- 0
 
   #Determine starting edge points in ep_start
-  for(e in raw$ep_start){
-    if(!is.na(e)){
-      count_master$edge_by_part[e] = count_master$edge_by_part[e] + 1
+  e <- 1
+  for(e in 1:length(raw$ep_start)){
+    if(!is.na(raw$ep_start[e])){
+      index <- match(raw$ep_start[e], count_master$participant)
+      count_master$edge_by_part[index] <- count_master$edge_by_part[index] + 1
     }
   }
-  final_ep_start <- tail(raw$ep_start, n = 1)
-  count_master$edge_by_part[final_ep_start] = count_master$edge_by_part[final_ep_start] - 1
+  if(!is.na(tail(raw$ep_start, n = 1))){
+    final_ep_start <- tail(raw$ep_start, n = 1)
+    index <- match(final_ep_start, count_master$participant)
+    count_master$edge_by_part[index] = count_master$edge_by_part[index] - 1
+
+  }
 
   #Determine starting edge points in ep_cont
-  for(e in raw$ep_cont){
-    if(!is.na(e)){
-      count_master$edge_by_part[e] = count_master$edge_by_part[e] + 1
+  e <- 1
+  for(e in 1:length(raw$ep_cont)){
+    if(!is.na(raw$ep_cont[e])){
+      index <- match(raw$ep_cont[e], count_master$participant)
+      count_master$edge_by_part[index] <- count_master$edge_by_part[index] + 1
+
     }
   }
-  final_ep_cont <- tail(raw$ep_cont, n = 1)
-  count_master$edge_by_part[final_ep_cont] = count_master$edge_by_part[final_ep_cont] - 1
+  if(!is.na(tail(raw$ep_cont, n = 1))){
+    final_ep_cont <- tail(raw$ep_cont, n = 1)
+    index <- match(final_ep_cont, count_master$participant)
+    count_master$edge_by_part[index] = count_master$edge_by_part[index] - 1
+
+  }
 
   #Get time as input from user as minutes
   timeMin <- convoMinutes
@@ -210,7 +248,7 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
   count_master$ep_conts_hour <- count_master$ep_cont/timeHours
 
   #Create plot for questions per hour versus responses per hour from data frame object
-  qvr_plot <- ggplot2::ggplot(count_master, ggplot2::aes(x=count_master$ep_starts_hour, y = count_master$ep_conts_hour, label = count_master$participant)) + ggplot2::geom_point(na.rm = TRUE) + ggplot2::xlab('Episode Starts per hour') + ggplot2::ylab('Episode Continuations per hour') + ggplot2::geom_text(nudge_x = 0.1, nudge_y = 0.1) + ggplot2::theme(panel.background = ggplot2::element_blank())
+  qvr_plot <- ggplot2::ggplot(count_master, ggplot2::aes(x=count_master$ep_starts_hour, y = count_master$ep_conts_hour, label = count_master$participant)) + ggplot2::geom_point(na.rm = TRUE) + ggplot2::xlab('Episode Starts per hour') + ggplot2::ylab('Episode Continuations per hour') + ggplot2::geom_text(hjust = 0, nudge_x = 0.05) + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25)) + ggplot2::scale_y_continuous(limits = c(0, NA))
   #Displays the plot to memory
   #print(qvr_plot)
 
@@ -228,6 +266,26 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
   #Calculate normalized turn ratios for all participants
   count_master$normalized_turn_ratio <- count_master$edge_by_part/fair_ratio
 
+  #Calculate the Shannon Diversity Index for all participants
+  n <- 1
+  total_edges <- sum(count_master$total_edges)
+  while(n < length(count_master$participant) + 1){
+    prop <- count_master$total_edges[n]/total_edges
+    nat_log_prop <- log(prop)
+    ind_SDI <- prop * nat_log_prop
+
+    if(is.nan(ind_SDI)){
+      count_master$ind_SDI[n] <- 0
+    } else {
+      count_master$ind_SDI[n] <- ind_SDI
+    }
+
+    n <- n + 1
+  }
+
+  count_master$shannon_diversity_index <- -1* sum(count_master$ind_SDI)
+  count_master$SDI_evenness <- count_master$shannon_diversity_index/(log(length(count_master[[1]])))
+
   #Create plot of the normalized turn ratios
   #First, create a subset of the necessary columns into a new data frame
   temp_plot <- data.frame(count_master$participant, count_master$normalized_turn_ratio)
@@ -238,22 +296,28 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE){
   #Third, create the grouping for the line attribute for ggplot
   temp_plot$group <- 1
   #Fourth, create a plot based on the sorted data
-  ntr_plot <- ggplot2::ggplot(temp_plot, ggplot2::aes(x = temp_plot$participant, y = temp_plot$normalized_turn_ratio, group = temp_plot$group, color = temp_plot$group)) + ggplot2::geom_point(show.legend = FALSE) + ggplot2::geom_line(show.legend = FALSE) + ggplot2::theme(panel.background = ggplot2::element_blank()) + ggplot2::xlab('Participants') + ggplot2::ylab('Normalized Turn Ratio') + ggplot2::scale_y_continuous(limits = c(0, NA))
+  ntr_plot <- ggplot2::ggplot(temp_plot, ggplot2::aes(x = temp_plot$participant, y = temp_plot$normalized_turn_ratio, group = temp_plot$group, color = temp_plot$group)) + ggplot2::geom_point(show.legend = FALSE) + ggplot2::geom_line(show.legend = FALSE) + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25)) + ggplot2::xlab('Participants') + ggplot2::ylab('Normalized Turn Ratio') + ggplot2::scale_y_continuous(limits = c(0, NA))
   #Displays the plot to memory
   #print(ntr_plot)
 
 
   #Combine all plots into single plot
-  comb_plot <- ggpubr::ggarrange(eps_plot, ntr_plot, qvr_plot, ncol =3, nrow = 1, labels = c("A","B","C"))
+  comb_plot <- ggpubr::ggarrange(eps_plot, ntr_plot, qvr_plot, ncol = 3, nrow = 1, labels = c("A","B","C"))
   #Display combined plot to memory
   #print(comb_plot)
 
+  # Split count_master up into visually-appealing data.frames
+  count_master_sub1 <- data.frame("participant" = count_master$participant, "ep_start" = count_master$ep_start, "ep_cont" = count_master$ep_cont, "total_count" = count_master$total_count, "total_edges_in_out" = count_master$total_edges, "edge_by_part" = count_master$edge_by_part, "ep_starts_hour" = count_master$ep_starts_hour, "ep_conts_hour" = count_master$ep_conts_hour)
+  count_master_plotA <- data.frame("length_of_ep" = eps_st$episode_length, "freq_of_ep" = eps_st$Freq)
+  count_master_sub2 <- data.frame("participant" = count_master$participant, "normalized_turn_ratio" = count_master$normalized_turn_ratio, "indv_SDI_arg" = count_master$ind_SDI, "SDI" = count_master$shannon_diversity_index, "SEI" = count_master$SDI_evenness)
 
   ##### Return Objects from Function #####
   # For the new saveData function
   saveDataVar <- 3
   # Returns multiple outputs from the functions
-  objectsReturned <- list(ngt_stats = count_master,
+  objectsReturned <- list(ngt_std_stats1 = count_master_sub1,
+                          ngt_std_stats2 = count_master_plotA,
+                          ngt_adv_stats = count_master_sub2,
                           episodes_plot = eps_plot,
                           qvr_plot = qvr_plot,
                           ntr_plot = ntr_plot,

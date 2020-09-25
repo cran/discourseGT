@@ -16,9 +16,8 @@
 #' @param attribute.nodesize Size of the nodes. Default will result in size of 10. Can be replaced with custom mapping in list or column in data frame. (Required)
 #' @examples
 #' df <- sampleData1
-#' prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-#' directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+#' prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #' attdata <- attributeData
 #' plotGraphs(baseNet, prop = 20, graphmode = "fruchtermanreingold",
 #' attribute = attdata$gender,
@@ -52,7 +51,7 @@ plotGraphs <- function(data, prop = 20, graphmode = "fruchtermanreingold",
   wpropscaled <- wprop * prop
 
   #Create the graph object
-  g2 <- network::as.network(raw, matrix.type = "edgelist", directed = data$directedNet, ignore.eval = FALSE, names.eval = "weight")
+  g2 <- network::as.network(raw, matrix.type = "edgelist", directed = TRUE, ignore.eval = FALSE, names.eval = "weight")
 
   #Prepare attribute mapping properties
   #For all versions of the plot

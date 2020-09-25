@@ -15,9 +15,8 @@
 #' @return Prints organized summary of all results of the graph with modular components on console or to .txt file on disk.
 #' @examples
 #' df <- sampleData1
-#' prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-#' prepGraphs <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-#' directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+#' prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+#' prepGraphs <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #' coreNet <- coreNetAnalysis(prepGraphs)
 #' subgroup <- subgroupsNetAnalysis(prepGraphs, raw_input = df)
 #' summaryNet(netintconfigData = prepGraphs, coreNetAnalysisData = coreNet,
@@ -48,8 +47,6 @@ summaryNet <- function(netintconfigData = NULL, coreNetAnalysisData = NULL,
         if(is.null(netintconfigData) == FALSE){
         cat('---------------GRAPH CONFIGURATION---------------\n')
         cat('Weighted Graph: ',netintconfigData$weightedGraph, '\n')
-        cat('Self-Interactions Allowed: ', netintconfigData$selfInteract, '\n')
-        cat('Graph Directed: ', netintconfigData$directedNet, '\n')
         cat('\n')
         }
         if(is.null(coreNetAnalysisData) == FALSE){
@@ -113,7 +110,7 @@ summaryNet <- function(netintconfigData = NULL, coreNetAnalysisData = NULL,
         cat({"The researcher(s) are primary responsible for the
         interpretation of the results presented here with the script.
         The authors accept no liability for any errors that
-        may result in the procesing or the interpretation of
+        may result in the processing or the interpretation of
         your results. However, if you do encounter errors in
         the package that should not have happened, please let us
         know\n"})
@@ -135,12 +132,12 @@ summaryNet <- function(netintconfigData = NULL, coreNetAnalysisData = NULL,
         cat("\n")
         cat({"THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
         IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
         IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
         ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
         CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
         WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"})
-        cat({"================== END SUMMARY =================="})
+        cat({"================== END SUMMARY ==================\n"})
 
         # Return objects
         objectsReturned <- list(project_title = netintconfigData$project_title,

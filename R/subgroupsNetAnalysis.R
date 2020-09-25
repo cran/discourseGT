@@ -15,9 +15,8 @@
 #'
 #' @examples
 #' df <- sampleData1
-#' prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-#' directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+#' prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #' subgroupsNetAnalysis(baseNet, raw_input = df)
 #'
 
@@ -27,18 +26,12 @@ subgroupsNetAnalysis <- function(ginp, raw_input = NULL, normalized = FALSE){
   g <- igraph::graph_from_adjacency_matrix(ginp$graphmatrix, mode = "undirected")
 
   # Determine subgroups with the Girvan-Newman algorithm
-  if(ginp$directedNet == FALSE){
-    g_sub <- suppressWarnings(igraph::cluster_edge_betweenness(graph = ginp$graph))
-
-  } else {
-    tabEdgeTemp <- tabulate_edges(input = raw_input, iscsvfile = FALSE)
-    prepGraphsDirTemp <- prepareGraphs(raw_data_input = tabEdgeTemp, directedNet = FALSE)
-    g_sub <- suppressWarnings(igraph::cluster_edge_betweenness(prepGraphsDirTemp$graph))
-
-  }
+  tabEdgeTemp <- tabulate_edges(input = raw_input, iscsvfile = FALSE)
+  prepGraphsDirTemp <- prepareGraphs(raw_data_input = tabEdgeTemp)
+  g_sub <- suppressWarnings(igraph::cluster_edge_betweenness(prepGraphsDirTemp$graph))
 
   # Report the betweenness values
-  g_bet <- igraph::betweenness(graph = ginp$graph,directed = ginp$directedNet, normalized = normalized)
+  g_bet <- igraph::betweenness(graph = ginp$graph, directed = TRUE, normalized = normalized)
 
   # Does loop function for each group to output members list
   # Function is under Summary of Variables for Analysis because of print function required

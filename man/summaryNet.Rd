@@ -29,9 +29,8 @@ Returns a summary of the processed graph results on console. The initial graph c
 }
 \examples{
 df <- sampleData1
-prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-prepGraphs <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+prepGraphs <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 coreNet <- coreNetAnalysis(prepGraphs)
 subgroup <- subgroupsNetAnalysis(prepGraphs, raw_input = df)
 summaryNet(netintconfigData = prepGraphs, coreNetAnalysisData = coreNet,

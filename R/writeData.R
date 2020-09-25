@@ -26,9 +26,8 @@
 #' attributeData <- attributeData
 #' df <- sampleData1
 #'
-#' prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-#' directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+#' prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #' NetPlots2 <- plotGraphs2(baseNet, attribute1 = attributeData$ethnicity,
 #' attribute2 = attributeData$gender, attribute.node.labels = attributeData$node,
 #' attribute1.label = "Ethnicity", attribute2.label = "Gender")
@@ -113,8 +112,6 @@ writeData <- function(project_name, objectfile, dirpath = NULL){
     if(is.null(netintconfigData) == FALSE){
       cat('---------------GRAPH CONFIGURATION---------------\n')
       cat('Weighted Graph: ',netintconfigData$weightedGraph, '\n')
-      cat('Self-Interactions Allowed: ', netintconfigData$selfInteract, '\n')
-      cat('Graph Directed: ', netintconfigData$directedNet, '\n')
       cat('\n')
     }
     if(is.null(coreNetAnalysisData) == FALSE){
@@ -177,13 +174,13 @@ writeData <- function(project_name, objectfile, dirpath = NULL){
     cat('Results from Code: \n')
     cat({"The researcher(s) are primary responsible for the interpretation of the results
       presented here with the script. The authors accept no liability for any errors that
-      may result in the procesing or the interpretation of your results. However,
+      may result in the processing or the interpretation of your results. However,
       if you do encounter errors in the package that shouldn't have happened, please let us
       know\n"})
     cat('\n')
     cat('Code Warranty: \n')
     cat("MIT License\n")
-    cat("Copyright (c) 2018 Albert Chai and Andrew S. Lee\n")
+    cat("Copyright (c) 2018 Albert Chai, Andrew S. Lee, Joshua P. Le, and Stanley M. Lo\n")
     cat("\n")
     cat({"Permission is hereby granted, free of charge, to any person obtaining a copy
       of this software and associated documentation files (the 'Software'), to deal
@@ -197,7 +194,7 @@ writeData <- function(project_name, objectfile, dirpath = NULL){
     cat("\n")
     cat({"THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
       IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+      FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
       AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
       LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
       OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE

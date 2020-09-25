@@ -18,9 +18,8 @@
 #' @param attribute.nodesize Size of the nodes. Default will result in size of 10. Can be replaced with custom mapping in list or column in data frame. (Required)
 #' @examples
 #' df <- sampleData1
-#' prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-#' directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+#' prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+#' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #' attdata <- attributeData
 #' plotGraphs2(baseNet, prop = 20, graphmode = "fruchtermanreingold",
 #' attribute1 = attdata$gender, attribute2 = attdata$ethnicity,
@@ -54,7 +53,7 @@ plotGraphs2 <- function(data, prop = 20, graphmode = "fruchtermanreingold",
   wpropscaled <- wprop * prop
 
   #Create the graph object
-  g2 <- network::as.network(raw, matrix.type = "edgelist", directed = data$directedNet, ignore.eval = FALSE, names.eval = "weight")
+  g2 <- network::as.network(raw, matrix.type = "edgelist", directed = TRUE, ignore.eval = FALSE, names.eval = "weight")
 
   #Prepare attribute mapping properties
   #Attribute 1
@@ -84,7 +83,8 @@ plotGraphs2 <- function(data, prop = 20, graphmode = "fruchtermanreingold",
                    color.legend = label_att1,
                    shape.legend = label_att2) +
     ggplot2::guides(size = FALSE) +  #Displays which legends should be present in the graph
-    ggplot2::ggtitle(data$project_title)
+    ggplot2::ggtitle(data$project_title) +
+    ggplot2::theme(text = ggplot2::element_text(size=15))
 
   # Display the generated plot
   #print(g2plot)

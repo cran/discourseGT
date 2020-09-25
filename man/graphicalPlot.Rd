@@ -4,17 +4,26 @@
 \alias{graphicalPlot}
 \title{Plot Graphs}
 \usage{
-graphicalPlot(ginp, graph_selection_input = 0, curvedEdgeLines = TRUE)
+graphicalPlot(
+  ginp,
+  graph_selection_input = 0,
+  curvedEdgeLines = TRUE,
+  logScale = FALSE,
+  logBase = NULL
+)
 }
 \arguments{
 \item{ginp}{The prepared graph object from prepareGraphs function}
 
-\item{graph_selection_input}{The type of graphical projection to be used. Default projection is 0 (Fruchterman Reingold). Selection must be a numeric option from 0-3. Other options include:
+\item{graph_selection_input}{The type of graphical projection to be used. Default projection is 0 (Fruchterman Reingold). Selection must be a numeric option from 0-2. Other options include:
 1 = Kamada Kawai,
-2 = Reingold Tilford, and
-3 = Bipartite}
+2 = Reingold Tilford}
 
-\item{curvedEdgeLines}{Whether the edges between nodes should be curved or straight. Default is curved lines.}
+\item{curvedEdgeLines}{Whether or not the edges between nodes should be curved or straight. Default is curved lines.}
+
+\item{logScale}{Whether or not the edges of the graph should be scaled down based on a logarithmic scale}
+
+\item{logBase}{If logScale = TRUE, then what logarithmic base should be applied to the graph's edges}
 }
 \value{
 Returns graphical plot to disk, if selected, or to R console
@@ -25,9 +34,8 @@ Plots the graph using the base plot function. To map attributes on the graph use
 \examples{
 
 df <- sampleData1
-prepNet <- tabulate_edges(df, iscsvfile = FALSE)
-baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1",
-directedNet = TRUE, selfInteract = FALSE, weightedGraph = TRUE)
+prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
+baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 
 #Plot the graph
 graphicalPlot(baseNet)
