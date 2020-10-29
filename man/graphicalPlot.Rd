@@ -8,6 +8,7 @@ graphicalPlot(
   ginp,
   graph_selection_input = 0,
   curvedEdgeLines = TRUE,
+  arrowSizeMultiplier = 1,
   logScale = FALSE,
   logBase = NULL
 )
@@ -20,6 +21,8 @@ graphicalPlot(
 2 = Reingold Tilford}
 
 \item{curvedEdgeLines}{Whether or not the edges between nodes should be curved or straight. Default is curved lines.}
+
+\item{arrowSizeMultiplier}{Adjusts the default arrow size based on a multiplier. Default value is 1.}
 
 \item{logScale}{Whether or not the edges of the graph should be scaled down based on a logarithmic scale}
 

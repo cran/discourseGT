@@ -248,7 +248,7 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
   count_master$ep_conts_hour <- count_master$ep_cont/timeHours
 
   #Create plot for questions per hour versus responses per hour from data frame object
-  qvr_plot <- ggplot2::ggplot(count_master, ggplot2::aes(x=count_master$ep_starts_hour, y = count_master$ep_conts_hour, label = count_master$participant)) + ggplot2::geom_point(na.rm = TRUE) + ggplot2::xlab('Episode Starts per hour') + ggplot2::ylab('Episode Continuations per hour') + ggplot2::geom_text(hjust = 0, nudge_x = 0.05) + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25)) + ggplot2::scale_y_continuous(limits = c(0, NA))
+  qvr_plot <- ggplot2::ggplot(count_master, ggplot2::aes(x=count_master$ep_starts_hour, y = count_master$ep_conts_hour, label = count_master$participant)) + ggplot2::geom_point(na.rm = TRUE) + ggplot2::xlab('Episode Starts per hour') + ggplot2::ylab('Episode Continuations per hour') + ggrepel::geom_label_repel() + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25)) + ggplot2::scale_y_continuous(limits = c(0, NA))
   #Displays the plot to memory
   #print(qvr_plot)
 

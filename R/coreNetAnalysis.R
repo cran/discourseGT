@@ -30,6 +30,8 @@ coreNetAnalysis <- function(ginp){
   # Edge Weighted Count
   if(weighted == TRUE){
     nedge_weighted <- sum(ginp$weight_list)
+  } else if(weighted == FALSE){
+    nedge_weighted <- NULL
   }
   # Node Count
   nnode <- igraph::gorder(g)

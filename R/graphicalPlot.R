@@ -12,6 +12,7 @@
 #' 1 = Kamada Kawai,
 #' 2 = Reingold Tilford
 #' @param curvedEdgeLines Whether or not the edges between nodes should be curved or straight. Default is curved lines.
+#' @param arrowSizeMultiplier Adjusts the default arrow size based on a multiplier. Default value is 1.
 #' @param logScale Whether or not the edges of the graph should be scaled down based on a logarithmic scale
 #' @param logBase If logScale = TRUE, then what logarithmic base should be applied to the graph's edges
 #' @return Returns graphical plot to disk, if selected, or to R console
@@ -28,7 +29,7 @@
 
 
 graphicalPlot <- function(ginp, graph_selection_input = 0,
-                         curvedEdgeLines = TRUE, logScale = FALSE, logBase = NULL){
+                         curvedEdgeLines = TRUE, arrowSizeMultiplier = 1, logScale = FALSE, logBase = NULL){
 
   # Extracts the graph object
   g <- ginp$graph
@@ -46,10 +47,10 @@ graphicalPlot <- function(ginp, graph_selection_input = 0,
 
   # Plot the final graph diagram
   if(logScale == TRUE){
-    plot(g, edge.width = log(igraph::E(g)$weight, base = logBase), edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5, edge.arrow.width = 1.5)
+    plot(g, edge.width = log(igraph::E(g)$weight, base = logBase), edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5 * arrowSizeMultiplier, edge.arrow.width = 1.5)
   }
   if(logScale == FALSE){
-    plot(g, edge.width = igraph::E(g)$weight, edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5, edge.arrow.width = 1.5)
+    plot(g, edge.width = igraph::E(g)$weight, edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5 * arrowSizeMultiplier, edge.arrow.width = 1.5)
   }
 
   title(project_title)

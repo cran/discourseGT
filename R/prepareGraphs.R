@@ -32,6 +32,8 @@ prepareGraphs <- function(raw_data_input, project_title = "", weightedGraph = TR
     g_weight <- unlist(weight_list)
     # Creates an attribute for weight
     igraph::E(g)$weight <- g_weight
+  } else if (weightedGraph == FALSE) {
+    weight_list <- NULL
   }
 
   # Self interactions = FALSE
