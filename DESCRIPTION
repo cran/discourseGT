@@ -2,8 +2,8 @@ Package: discourseGT
 Type: Package
 Title: Analyze Group Patterns using Graph Theory in Educational
         Settings
-Version: 1.1.1
-Date: 2020-10-29
+Version: 1.1.2
+Date: 2020-12-7
 Authors@R: c(
   person("Albert","Chai",   role=c("aut"), email = "albertchai@ucsd.edu"),
   person("Andrew","Lee",    role=("aut"), email = "aleet383@ucla.edu"),
@@ -21,7 +21,7 @@ Suggests: sna
 RoxygenNote: 7.0.2
 Imports: igraph, ggpubr, GGally, network, ggplot2, dplyr, ggrepel
 NeedsCompilation: no
-Packaged: 2020-10-29 21:44:40 UTC; Josh
+Packaged: 2020-12-08 01:02:00 UTC; Josh
 Author: Albert Chai [aut],
   Andrew Lee [aut],
   Joshua Le [aut, cre],
@@ -31,4 +31,4 @@ Author: Albert Chai [aut],
   Stanley Lo [aut]
 Maintainer: Joshua Le <jpl038@ucsd.edu>
 Repository: CRAN
-Date/Publication: 2020-10-29 22:10:02 UTC
+Date/Publication: 2020-12-08 06:10:03 UTC

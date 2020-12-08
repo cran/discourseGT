@@ -9,7 +9,7 @@ subgroupsNetAnalysis(ginp, raw_input = NULL, normalized = FALSE)
 \arguments{
 \item{ginp}{The prepared graph object from prepareGraphs function}
 
-\item{raw_input}{The file path of the original .csv file}
+\item{raw_input}{The data of the original .csv file}
 
 \item{normalized}{Normalize the betweeness centrality values}
 }

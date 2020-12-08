@@ -26,7 +26,7 @@ df <- sampleData1
 
 prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
 baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
-NetPlots2 <- plotGraphs2(baseNet, attribute1 = attributeData$ethnicity,
+NetPlots2 <- plot2Att(baseNet, attribute1 = attributeData$ethnicity,
 attribute2 = attributeData$gender, attribute.node.labels = attributeData$node,
 attribute1.label = "Ethnicity", attribute2.label = "Gender")
 

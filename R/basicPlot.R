@@ -1,11 +1,11 @@
 # discourseGT
-# graphicalPlot
+# basicPlot
 # MIT License
 
 # Documentation
 #' Plot Graphs
 #'
-#' Plots the graph using the base plot function. To map attributes on the graph use the plotGraphs functions, 1 attribute with `plotGraphs` or 2 attributes with `plotGraphs2`.
+#' Plots the graph using the base plot function. To map attributes on the graph use `plot1Att` for 1 attribute or `plot2Att` for 2 attributes.
 #'
 #' @param ginp The prepared graph object from prepareGraphs function
 #' @param graph_selection_input The type of graphical projection to be used. Default projection is 0 (Fruchterman Reingold). Selection must be a numeric option from 0-2. Other options include:
@@ -23,12 +23,12 @@
 #' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #'
 #' #Plot the graph
-#' graphicalPlot(baseNet)
+#' basicPlot(baseNet)
 #'
 #'
 
 
-graphicalPlot <- function(ginp, graph_selection_input = 0,
+basicPlot <- function(ginp, graph_selection_input = 0,
                          curvedEdgeLines = TRUE, arrowSizeMultiplier = 1, logScale = FALSE, logBase = NULL){
 
   # Extracts the graph object

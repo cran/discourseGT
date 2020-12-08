@@ -1,5 +1,5 @@
 # discourseGT
-# plotGraphs2
+# plot2Att
 # Uses the ggplot2 library to plot graphs with GGally/ggnet
 
 # Documentation
@@ -21,14 +21,14 @@
 #' prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
 #' baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
 #' attdata <- attributeData
-#' plotGraphs2(baseNet, prop = 20, graphmode = "fruchtermanreingold",
+#' plot2Att(baseNet, prop = 20, graphmode = "fruchtermanreingold",
 #' attribute1 = attdata$gender, attribute2 = attdata$ethnicity,
 #' attribute1.label = "Gender", attribute2.label = "Ethnicity",
 #' attribute.node.labels = attdata$node, attribute.nodesize = 12)
 #'
 #'
 
-plotGraphs2 <- function(data, prop = 20, graphmode = "fruchtermanreingold",
+plot2Att <- function(data, prop = 20, graphmode = "fruchtermanreingold",
                           attribute1 = NULL, attribute2 = NULL,
                           attribute1.label = "Attribute 1", attribute2.label = "Attribute 2",
                           attribute.node.labels = NULL,

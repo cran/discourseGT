@@ -8,7 +8,7 @@
 #' Performs a subgroup analysis on the graph
 #'
 #' @param ginp The prepared graph object from prepareGraphs function
-#' @param raw_input The file path of the original .csv file
+#' @param raw_input The data of the original .csv file
 #' @param normalized Normalize the betweeness centrality values
 #'
 #' @return Saves number of potential cliques, cores, symmetry of the graph, dyads in graphs, node composition in proposed cliques, neighbors adjacent to each node, transitivity (local and global) as a list object
