@@ -1,5 +1,5 @@
-5c6a31e8d79a0ffcd1692c39070b9ec2 *DESCRIPTION
-145cc96d7659317b3713ac7b552b946a *LICENSE
+df974fb1a6f50bd0b28730ee8cb08b62 *DESCRIPTION
+878c75f72c3a56149cd85b06ce00d167 *LICENSE
 e09cc9d96ff244f64087e4b415ebda99 *NAMESPACE
 66c650eef6826351e8341838b17a1d3d *R/attributeData.R
 12ac0ec168ec97444b4d25c91c09eb9c *R/basicPlot.R
@@ -12,7 +12,7 @@ a3709b3e19352dcf4b2b655321e7aa3d *R/plot2Att.R
 7fa557dc8aa597e1a8126fc2b83eedf8 *R/prepareGraphs.R
 59723842079b43cb0c9b36ddcdea55e0 *R/sampleData1.R
 ec4b1b3f06db7cdb7a9ec8eb73623d62 *R/subgroupsNetAnalysis.R
-fe4844dca6cffc30276def5f11045ba9 *R/summaryNet.R
+09d6331fc8d851a7c17f0df636ac2e2b *R/summaryNet.R
 c8bbd4b2e65de035d33b84bd5243b2ce *R/tabulate_edges.R
 4d5bca71e48f4d487b7fe44132a5f026 *R/writeData.R
 344dc5f99f240aaad8577ac1980b31a7 *README.md

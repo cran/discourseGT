@@ -71,6 +71,7 @@ summaryNet <- function(netintconfigData = NULL, coreNetAnalysisData = NULL,
         cat('Articulation Points List: \n')
         print(coreNetAnalysisData$artpoint)
         cat('\n')
+        cat('Reciprocity: ', coreNetAnalysisData$reciprocity, '\n')
         cat('\n')
         }
         if(is.null(subgroupsNetAnalysisData) == FALSE){
