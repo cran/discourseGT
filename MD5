@@ -1,4 +1,4 @@
-df974fb1a6f50bd0b28730ee8cb08b62 *DESCRIPTION
+c80dcfb926af8be95bc85cde47106c33 *DESCRIPTION
 878c75f72c3a56149cd85b06ce00d167 *LICENSE
 e09cc9d96ff244f64087e4b415ebda99 *NAMESPACE
 66c650eef6826351e8341838b17a1d3d *R/attributeData.R
@@ -8,7 +8,7 @@ e09cc9d96ff244f64087e4b415ebda99 *NAMESPACE
 cda6ad947a09063c39fd2cc21e5288c5 *R/edgelist_raw.R
 08bd2014701685cd80f1c8ad0e128f9e *R/plot1Att.R
 a3709b3e19352dcf4b2b655321e7aa3d *R/plot2Att.R
-23a66107e9d492dc0fd9a67b38bb0826 *R/plotNGTData.R
+fe8234c9fedf8c2f43d133a74ea67e53 *R/plotNGTData.R
 7fa557dc8aa597e1a8126fc2b83eedf8 *R/prepareGraphs.R
 59723842079b43cb0c9b36ddcdea55e0 *R/sampleData1.R
 ec4b1b3f06db7cdb7a9ec8eb73623d62 *R/subgroupsNetAnalysis.R

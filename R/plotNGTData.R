@@ -138,7 +138,24 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
   }
 
   #Merge the questions and responses of each participant together
-  count_master <- merge(qcount, rcount, by = "Var1", all.x = TRUE, all.y = TRUE)
+  #Checks to see if there are both ep_starts and ep_conts or if there is a missing column (all of one, for instance)
+  if((length(qcount) == 2) & (length(rcount) == 2)){
+    count_master <- merge(qcount, rcount, by = "Var1", all.x = TRUE, all.y = TRUE)
+  }
+  else if((length(qcount) == 2) & (length(rcount) == 1)){
+    count_master <- qcount
+    colnames(count_master)[colnames(count_master)=="Freq"] <- "Freq.x"
+    count_master$Freq.y <- 0
+    count_master <- count_master[, c("Var1", "Freq.x", "Freq.y")]
+  }
+  else if((length(qcount) == 1) & (length(rcount) == 2)){
+    count_master <- rcount
+    colnames(count_master)[colnames(count_master)=="Freq"] <- "Freq.y"
+    count_master$Freq.x <- 0
+    count_master <- count_master[, c("Var1", "Freq.x", "Freq.y")]
+  }
+  
+  
   colnames(count_master)[colnames(count_master)=="Var1"] <- "participant"
   colnames(count_master)[colnames(count_master)=="Freq.x"] <- "ep_start"
   colnames(count_master)[colnames(count_master)=="Freq.y"] <- "ep_cont"
