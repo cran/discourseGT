@@ -9,8 +9,9 @@ basicPlot(
   graph_selection_input = 0,
   curvedEdgeLines = TRUE,
   arrowSizeMultiplier = 1,
-  logScale = FALSE,
-  logBase = NULL
+  scaledEdgeLines = FALSE,
+  scaledMin = NULL,
+  scaledMax = NULL
 )
 }
 \arguments{
@@ -24,9 +25,11 @@ basicPlot(
 
 \item{arrowSizeMultiplier}{Adjusts the default arrow size based on a multiplier. Default value is 1.}
 
-\item{logScale}{Whether or not the edges of the graph should be scaled down based on a logarithmic scale}
+\item{scaledEdgeLines}{Whether or not the edges of the graph should be scaled}
 
-\item{logBase}{If logScale = TRUE, then what logarithmic base should be applied to the graph's edges}
+\item{scaledMin}{If scaledEdgeLines = TRUE, then what the lightest weight should be scaled to}
+
+\item{scaledMax}{If scaledEdgeLines = TRUE, then what the heaviest weight should be scaled to}
 }
 \value{
 Returns graphical plot to disk, if selected, or to R console

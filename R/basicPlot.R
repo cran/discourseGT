@@ -13,8 +13,9 @@
 #' 2 = Reingold Tilford
 #' @param curvedEdgeLines Whether or not the edges between nodes should be curved or straight. Default is curved lines.
 #' @param arrowSizeMultiplier Adjusts the default arrow size based on a multiplier. Default value is 1.
-#' @param logScale Whether or not the edges of the graph should be scaled down based on a logarithmic scale
-#' @param logBase If logScale = TRUE, then what logarithmic base should be applied to the graph's edges
+#' @param scaledEdgeLines Whether or not the edges of the graph should be scaled
+#' @param scaledMin If scaledEdgeLines = TRUE, then what the lightest weight should be scaled to
+#' @param scaledMax If scaledEdgeLines = TRUE, then what the heaviest weight should be scaled to
 #' @return Returns graphical plot to disk, if selected, or to R console
 #' @examples
 #'
@@ -29,7 +30,7 @@
 
 
 basicPlot <- function(ginp, graph_selection_input = 0,
-                         curvedEdgeLines = TRUE, arrowSizeMultiplier = 1, logScale = FALSE, logBase = NULL){
+                         curvedEdgeLines = TRUE, arrowSizeMultiplier = 1, scaledEdgeLines = FALSE, scaledMin = NULL, scaledMax = NULL){
 
   # Extracts the graph object
   g <- ginp$graph
@@ -46,11 +47,24 @@ basicPlot <- function(ginp, graph_selection_input = 0,
   }
 
   # Plot the final graph diagram
-  if(logScale == TRUE){
-    plot(g, edge.width = log(igraph::E(g)$weight, base = logBase), edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5 * arrowSizeMultiplier, edge.arrow.width = 1.5)
+  if((scaledEdgeLines == TRUE) && (scaledMin <= scaledMax)){
+    Sweight <- igraph::E(g)$weight
+    minSweight <- min(Sweight)
+    maxSweight <- max(Sweight)
+    scaledVec <- double()
+
+    for(x in Sweight){
+      y <- (((scaledMax - scaledMin) * (x - min(Sweight)))/(max(Sweight) - min(Sweight))) + scaledMin
+      scaledVec <- c(scaledVec, y)
+    }
+
+    plot(g, edge.width = scaledVec, edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5 * arrowSizeMultiplier, edge.arrow.width = 1.5)
   }
-  if(logScale == FALSE){
+  else if(scaledEdgeLines == FALSE){
     plot(g, edge.width = igraph::E(g)$weight, edge.color = "black", edge.curved = curvedEdgeLines, edge.arrow.size = 0.5 * arrowSizeMultiplier, edge.arrow.width = 1.5)
+  }
+  else{
+    cat("Invalid scale input")
   }
 
   title(project_title)

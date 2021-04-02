@@ -155,7 +155,6 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
     count_master <- count_master[, c("Var1", "Freq.x", "Freq.y")]
   }
   
-  
   colnames(count_master)[colnames(count_master)=="Var1"] <- "participant"
   colnames(count_master)[colnames(count_master)=="Freq.x"] <- "ep_start"
   colnames(count_master)[colnames(count_master)=="Freq.y"] <- "ep_cont"
@@ -265,7 +264,7 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
   count_master$ep_conts_hour <- count_master$ep_cont/timeHours
 
   #Create plot for questions per hour versus responses per hour from data frame object
-  qvr_plot <- ggplot2::ggplot(count_master, ggplot2::aes(x=count_master$ep_starts_hour, y = count_master$ep_conts_hour, label = count_master$participant)) + ggplot2::geom_point(na.rm = TRUE) + ggplot2::xlab('Episode Starts per hour') + ggplot2::ylab('Episode Continuations per hour') + ggrepel::geom_label_repel() + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25)) + ggplot2::scale_y_continuous(limits = c(0, NA))
+  qvr_plot <- ggplot2::ggplot(count_master, ggplot2::aes(x=count_master$ep_starts_hour, y = count_master$ep_conts_hour, label = count_master$participant)) + ggplot2::geom_point(na.rm = TRUE) + ggplot2::xlab('Episode Starts per hour') + ggplot2::ylab('Episode Continuations per hour') + ggrepel::geom_label_repel() + ggplot2::theme(text = ggplot2::element_text(size=15), panel.background = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_line(colour="gray85", size=0.25), panel.grid.major = ggplot2::element_line(colour="gray85", size=0.25)) + ggplot2::scale_y_continuous(limits = c(0, NA)) + ggplot2::scale_x_continuous(limits = c(0, NA))
   #Displays the plot to memory
   #print(qvr_plot)
 
@@ -317,12 +316,6 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
   #Displays the plot to memory
   #print(ntr_plot)
 
-
-  #Combine all plots into single plot
-  comb_plot <- ggpubr::ggarrange(eps_plot, ntr_plot, qvr_plot, ncol = 3, nrow = 1, labels = c("A","B","C"))
-  #Display combined plot to memory
-  #print(comb_plot)
-
   # Split count_master up into visually-appealing data.frames
   count_master_sub1 <- data.frame("participant" = count_master$participant, "ep_start" = count_master$ep_start, "ep_cont" = count_master$ep_cont, "total_count" = count_master$total_count, "total_edges_in_out" = count_master$total_edges, "edge_by_part" = count_master$edge_by_part, "ep_starts_hour" = count_master$ep_starts_hour, "ep_conts_hour" = count_master$ep_conts_hour)
   count_master_plotA <- data.frame("length_of_ep" = eps_st$episode_length, "freq_of_ep" = eps_st$Freq)
@@ -338,7 +331,6 @@ plotNGTData <- function(data, convoMinutes, iscsvfile = TRUE, silentNodes = 0){
                           episodes_plot = eps_plot,
                           qvr_plot = qvr_plot,
                           ntr_plot = ntr_plot,
-                          comb_plot = comb_plot,
                           saveDataVar = saveDataVar)
   return(objectsReturned)
 }

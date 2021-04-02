@@ -2,10 +2,10 @@
 #'
 #' A data set that sample attribute data to complement Sample Data 1. This data was randomly generated.
 #' This data set is for students who are currently
-#' taking a STEM course at a major university. 10 students are in this sample study.
+#' taking a STEM course at a major university. 4 students are in this sample study.
 #'
 #'
-#' @format A data frame with 10 rows with 12 variables
+#' @format A data frame of 4 rows with 12 variables
 #' \describe{
 #'   \item{node}{Student identifier in the group}
 #'   \item{gender}{Gender of student}
