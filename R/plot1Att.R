@@ -51,7 +51,7 @@ plot1Att <- function(data, prop = 20, graphmode = "fruchtermanreingold",
   wpropscaled <- wprop * prop
 
   #Create the graph object
-  g2 <- network::as.network(raw, matrix.type = "edgelist", directed = TRUE, ignore.eval = FALSE, names.eval = "weight")
+  g2 <- network::as.network(raw, matrix.type = "edgelist", directed = TRUE, loops = TRUE, ignore.eval = FALSE)
 
   #Prepare attribute mapping properties
   #For all versions of the plot
