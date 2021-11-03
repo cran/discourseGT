@@ -33,6 +33,7 @@ plot1Att(
 Plots graph data using the GGally library and ggnet function while incorporating demographic properties. Use this plot function if you have all demographic data available to plot.
 }
 \examples{
+\donttest{
 df <- sampleData1
 prepNet <- tabulate_edges(df, iscsvfile = FALSE, silentNodes = 0)
 baseNet <- prepareGraphs(prepNet, project_title = "Sample Data 1", weightedGraph = TRUE)
@@ -41,6 +42,5 @@ plot1Att(baseNet, prop = 20, graphmode = "fruchtermanreingold",
 attribute = attdata$gender,
 attribute.label = "Gender",
 attribute.node.labels = attdata$node, attribute.nodesize = 12)
-
-
+}
 }
