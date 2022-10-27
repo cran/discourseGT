@@ -1,4 +1,4 @@
-e2f6af7bde34f1b16c6ec33a4d3c6f1d *DESCRIPTION
+096a4494580799c5ad34b907366259ef *DESCRIPTION
 878c75f72c3a56149cd85b06ce00d167 *LICENSE
 e09cc9d96ff244f64087e4b415ebda99 *NAMESPACE
 d3af4d929c6f41d69b3a0d37347a6e46 *R/attributeData.R
@@ -12,11 +12,11 @@ fba4a399af58d44bcff444037b0aaf7c *R/plot2Att.R
 7fa557dc8aa597e1a8126fc2b83eedf8 *R/prepareGraphs.R
 e0aa57da441d1bccb725befa2fc31335 *R/sampleData1.R
 ec4b1b3f06db7cdb7a9ec8eb73623d62 *R/subgroupsNetAnalysis.R
-09d6331fc8d851a7c17f0df636ac2e2b *R/summaryNet.R
+53e987a2291049877371074e41145154 *R/summaryNet.R
 c8bbd4b2e65de035d33b84bd5243b2ce *R/tabulate_edges.R
 4d5bca71e48f4d487b7fe44132a5f026 *R/writeData.R
-344dc5f99f240aaad8577ac1980b31a7 *README.md
-5d7663b088e22a1f4773f9a96730c724 *build/vignette.rds
+b00a4b1908fe634bf2627cab48416036 *README.md
+722aa8f4f8cb18c275a0b501d2260852 *build/vignette.rds
 76cf1154f5ce47b3bb413a06ce89d25b *data/attributeData.rda
 4fa85acf156f676834a6f759bd5be56a *data/sampleData1.rda
 089bf61b4ced62004302e66de27429f0 *inst/doc/discourseGT.pdf

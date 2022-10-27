@@ -118,7 +118,7 @@ summaryNet <- function(netintconfigData = NULL, coreNetAnalysisData = NULL,
         cat('\n')
         cat('Code Warranty: \n')
         cat("MIT License\n")
-        cat("Copyright (c) 2018 Albert Chai, Andrew S. Lee, Joshua P. Le, and Stanley M. Lo\n")
+        cat("Copyright (c) 2021 Albert Chai, Andrew S. Lee, Joshua P. Le, and Stanley M. Lo\n")
         cat("\n")
         cat({"Permission is hereby granted, free of charge, to any person obtaining
         a copy of this software and associated documentation files

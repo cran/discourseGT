@@ -1,4 +1,6 @@
 # discourseGT
+[![](https://cranlogs.r-pkg.org/badges/discourseGT)](https://cran.r-project.org/package=discourseGT)
+
 R package that converts transcripts to graphs (networks), includes parameters relevant to educational research
 
 ## About and Purpose
@@ -14,4 +16,4 @@ Instructions on how to use the package can be found through the Repository Wiki.
 
 ## License
 This package is MIT Licensed  
-Written by Albert Chai <@albertchai>, Andrew Lee <@alee4738>, Joshua Le <@jpl038>, and Stanley Lo <@smlo>
+Written by Albert Chai <@albertchai>, Andrew Lee <@alee4738>, Joshua Le <@jpl038>, Jitarth Sheth <@jshethbright> and Stanley Lo <@smlo>
